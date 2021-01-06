@@ -1,0 +1,27 @@
+{
+  "name": "rtodobacknode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheBigR/rTodoBackNode.git"
+  },
+  "keywords": [
+    "node",
+    "crud",
+    "mongo"
+  ],
+  "author": "TheBigR",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheBigR/rTodoBackNode/issues"
+  },
+  "homepage": "https://github.com/TheBigR/rTodoBackNode#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
