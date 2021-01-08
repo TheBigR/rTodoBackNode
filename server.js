@@ -1,1 +1,10 @@
-console.log('May Node be with you')
+const express = require('express')
+const app = express()
+
+app.listen(3001, () => {
+  console.log('listening on port 3001')
+})
+
+app.get('/', (req, res) => {
+  res.send('hello world')
+})
