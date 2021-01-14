@@ -9,18 +9,22 @@ const connectionString =
 MongoClient.connect(connectionString, { useUnifiedTopology: true })
   .then((client) => {
     console.log('Connected to Database')
+    const db = client.db('tasks2')
+    const tasksCollection = db.collection('tasks')
+    app.use(bodyParser.urlencoded({ extended: true }))
+    app.get('/', (req, res) => {
+      res.sendFile(__dirname + '/index.html')
+    })
+    app.post('/tasks', (req, res) => {
+      tasksCollection
+        .insertOne(req.body)
+        .then((result) => {
+          console.log(result)
+        })
+        .catch((error) => console.error(error))
+    })
+    app.listen(3001, () => {
+      console.log('listening on port 3001')
+    })
   })
   .catch((error) => console.error(error))
-
-app.use(bodyParser.urlencoded({ extended: true }))
-
-app.listen(3001, () => {
-  console.log('listening on port 3001')
-})
-
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html')
-})
-app.post('/tasks', (req, res) => {
-  console.log(req.body)
-})
