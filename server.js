@@ -6,16 +6,11 @@ const MongoClient = require('mongodb').MongoClient
 const connectionString =
   'mongodb+srv://rTodoUser:Tolik1984@royn.7svan.mongodb.net/tasks2?retryWrites=true&w=majority'
 
-MongoClient.connect(
-  connectionString,
-  {
-    useUnifiedTopology: true,
-  },
-  (err, client) => {
-    if (err) return console.error(err)
+MongoClient.connect(connectionString, { useUnifiedTopology: true })
+  .then((client) => {
     console.log('Connected to Database')
-  },
-)
+  })
+  .catch((error) => console.error(error))
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
