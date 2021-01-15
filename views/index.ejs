@@ -11,5 +11,18 @@
       <input type="text" placeholder="task" name="task" />
       <button type="submit">Submit</button>
     </form>
+    <h2> Tasks </h2>
+
+<ul class="tasks">
+  <!-- Loop through quotes -->
+  <% for(var i = 0; i < tasks.length; i++) {%>
+    <li class="task">
+      <!-- Output name from the iterated quote object -->
+      <span><%= tasks[i].name %></span>:
+      <!-- Output quote from the iterated quote object -->
+      <span><%= tasks[i].task %></span>
+    </li>
+  <% } %>
+</ul>
   </body>
 </html>

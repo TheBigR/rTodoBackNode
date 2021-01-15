@@ -11,15 +11,22 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
     console.log('Connected to Database')
     const db = client.db('tasks2')
     const tasksCollection = db.collection('tasks')
+    app.set('view engine', 'ejs')
     app.use(bodyParser.urlencoded({ extended: true }))
     app.get('/', (req, res) => {
-      res.sendFile(__dirname + '/index.html')
+      db.collection('tasks')
+        .find()
+        .toArray()
+        .then((results) => {
+          res.render('index.ejs', { tasks: results })
+        })
+        .catch((error) => console.error(error))
     })
     app.post('/tasks', (req, res) => {
       tasksCollection
         .insertOne(req.body)
         .then((result) => {
-          console.log(result)
+          res.redirect('/')
         })
         .catch((error) => console.error(error))
     })
