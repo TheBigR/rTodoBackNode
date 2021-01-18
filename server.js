@@ -13,6 +13,8 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
     const tasksCollection = db.collection('tasks')
     app.set('view engine', 'ejs')
     app.use(bodyParser.urlencoded({ extended: true }))
+    app.use(bodyParser.json())
+    app.use(express.static('public'))
     app.get('/', (req, res) => {
       db.collection('tasks')
         .find()
@@ -27,6 +29,28 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
         .insertOne(req.body)
         .then((result) => {
           res.redirect('/')
+        })
+        .catch((error) => console.error(error))
+    })
+    app.put('/tasks', (req, res) => {
+      tasksCollection
+        .findOneAndUpdate(
+          { name: 'crap' },
+          {
+            $set: {
+              name: req.body.name,
+              task: req.body.task,
+            },
+          },
+          {
+            upsert: true,
+          },
+        )
+        .then((res) => {
+          if (res.ok) return res.json()
+        })
+        .then((response) => {
+          window.location.reload(true)
         })
         .catch((error) => console.error(error))
     })
